@@ -55,18 +55,19 @@ public class VistaPrincipal extends javax.swing.JFrame {
 
         rbgAcciones = new javax.swing.ButtonGroup();
         jScrollPane2 = new javax.swing.JScrollPane();
-        jList1 = new javax.swing.JList<>();
+        jList1 = new javax.swing.JList<String>();
         txtString = new javax.swing.JTextField();
         btnEnviar = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        lstElementos = new javax.swing.JList<>();
+        lstElementos = new javax.swing.JList<String>();
         rbtnPalabra = new javax.swing.JRadioButton();
         rbtnLetras = new javax.swing.JRadioButton();
+        jLabel1 = new javax.swing.JLabel();
 
-        jList1.setModel(new javax.swing.AbstractListModel<String>() {
+        jList1.setModel(new javax.swing.AbstractListModel() {
             String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
             public int getSize() { return strings.length; }
-            public String getElementAt(int i) { return strings[i]; }
+            public Object getElementAt(int i) { return strings[i]; }
         });
         jScrollPane2.setViewportView(jList1);
 
@@ -82,6 +83,11 @@ public class VistaPrincipal extends javax.swing.JFrame {
         jScrollPane1.setViewportView(lstElementos);
 
         rbtnPalabra.setText("Palabras");
+        rbtnPalabra.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rbtnPalabraActionPerformed(evt);
+            }
+        });
 
         rbtnLetras.setText("letras");
 
@@ -105,7 +111,10 @@ public class VistaPrincipal extends javax.swing.JFrame {
                         .addComponent(rbtnLetras))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(78, 78, 78)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 209, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 209, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(54, 54, 54)
+                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 262, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -121,7 +130,9 @@ public class VistaPrincipal extends javax.swing.JFrame {
                 .addComponent(btnEnviar)
                 .addGap(35, 35, 35)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 186, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(68, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 27, Short.MAX_VALUE)
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 15, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(26, 26, 26))
         );
 
         pack();
@@ -136,14 +147,24 @@ public class VistaPrincipal extends javax.swing.JFrame {
                 System.out.println(a);
                 model.addElement(a);
               }
-            
+            jLabel1.setText("El texto introducido tiene " + contador.getCantidadPalabras() + " palabras");
         } else if(rbtnLetras.isSelected()) {
-
+     char[] listaLetras=contador.contadorLetras(txtString.getText());
+     
+     for(char b: listaLetras){
+         System.out.println(b);
+         model.addElement(b);
+     }
+     jLabel1.setText("El texto introducido tiene " + contador.getCantidadLetras() +" letras");
         }
         
         lstElementos.setModel(model);
       
     }//GEN-LAST:event_btnEnviarActionPerformed
+
+    private void rbtnPalabraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbtnPalabraActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_rbtnPalabraActionPerformed
 
     /**
      * @param args the command line arguments
@@ -182,6 +203,7 @@ public class VistaPrincipal extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnEnviar;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JList<String> jList1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
